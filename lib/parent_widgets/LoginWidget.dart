@@ -80,32 +80,31 @@ class LoginScreenState extends State<LoginScreenWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(title: const Text('Testing')),
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-          child: TextField(
-              controller: emailTextController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'email'),
-              style: const TextStyle(fontSize: 16)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-          child: TextField(
-              obscureText: true,
-              controller: passwordTextController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'password'),
-              style: const TextStyle(fontSize: 16)),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              createUser();
-            },
-            child: isLoggedIn() ? const Text('Signup') : const Text('Login'))
-      ]),
-    );
+    return Column(children: [
+      const Text('Muhammad', style: TextStyle(fontSize: 20)),
+      const Text('Pharmaceuticals', style: TextStyle(fontSize: 20)),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+        child: TextField(
+            controller: emailTextController,
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(), hintText: 'email'),
+            style: const TextStyle(fontSize: 16)),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+        child: TextField(
+            obscureText: true,
+            controller: passwordTextController,
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(), hintText: 'password'),
+            style: const TextStyle(fontSize: 16)),
+      ),
+      ElevatedButton(
+          onPressed: () {
+            createUser();
+          },
+          child: isLoggedIn() ? const Text('Signup') : const Text('Login'))
+    ]);
   }
 }
