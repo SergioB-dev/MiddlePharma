@@ -2,27 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../ViewModels/FirebaseManager.dart';
 import '../firebase_options.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
-class FirebaseAuthentication {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  Future<String?> createUser(String email, String password) async {
-    try {
-      UserCredential credential = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      return credential.user?.uid;
-    } on FirebaseAuthException catch (e) {
-      if (kDebugMode) {
-        print('❌ Could not create a user because $e');
-      }
-      return null;
-    }
-  }
-}
 
 class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
@@ -63,14 +47,14 @@ class LoginScreenState extends State<LoginScreenWidget> {
   Future<void> createUser() async {
     print(auth);
     var that = auth
-        ?.createUser(emailTextController.text, passwordTextController.text)
+        .createUser(emailTextController.text, passwordTextController.text)
         .then((response) => {print(response)})
         .catchError((e) => {print(e)});
     print(that);
   }
 
   bool isLoggedIn() {
-    if (auth._firebaseAuth.currentUser == null) {
+    if (auth.firebaseAuth.currentUser == null) {
       return false;
     } else {
       return true;
