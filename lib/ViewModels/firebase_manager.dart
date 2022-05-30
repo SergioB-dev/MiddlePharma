@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:middle_pharamaceuticals/Models/Product.dart';
+import 'package:middle_pharamaceuticals/Models/product.dart';
 
 class FirebaseAuthentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   FirebaseAuthentication() {
     isLoggedIn();
   }
@@ -63,7 +64,9 @@ class FirebaseAuthentication {
 }
 
 class FirebaseFS {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final CollectionReference availableProducts =
+      _firestore.collection('available_products');
   List<Product> allProducts = [];
   bool didLoadProducts = false;
 
@@ -81,6 +84,7 @@ class FirebaseFS {
 
       final product = Product(
           name: data!['name'],
+          category: data['category'],
           description: data['description'],
           price: data['price']);
       print('We have a prodcut: \n $product');
@@ -99,6 +103,7 @@ class FirebaseFS {
         print(doc);
         results.add(Product(
             name: doc['name'],
+            category: doc['category'],
             description: doc['description'],
             price: doc['price']));
       }
@@ -109,6 +114,21 @@ class FirebaseFS {
     });
   }
 
+  Future<List<Product>> getProductsByCategory(String category) async {
+    List<Product> products_by_category = [];
+    final querySnapshot =
+        await availableProducts.where('category', isEqualTo: category).get();
+    for (final item in querySnapshot.docs) {
+      final product = Product(
+          name: item.get('name'),
+          category: item.get('category'),
+          description: item.get('description'),
+          price: item.get('price'));
+      products_by_category.add(product);
+    }
+
+    return products_by_category;
+  }
   // Future<List<Product>?> getProductsX() async {
   //   List<Product> products = [];
   //   if (kDebugMode) {}

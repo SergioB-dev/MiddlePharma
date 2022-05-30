@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:middle_pharamaceuticals/ViewModels/FirebaseManager.dart';
+import 'package:middle_pharamaceuticals/ViewModels/firebase_manager.dart';
 
-import '../Models/Product.dart';
+import '../Models/product.dart';
 
 class HomeScreenWidget extends StatefulWidget {
   const HomeScreenWidget({Key? key}) : super(key: key);
@@ -38,7 +38,8 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             color: Colors.blue,
             margin: const EdgeInsets.all(10),
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
+                print(await firestore.getProductsByCategory('syrups'));
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -64,8 +65,15 @@ class ProductDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('$name $description $price'),
-    );
+    return Scaffold(
+        appBar: AppBar(title: Text(name)),
+        body: Card(
+            child: Center(
+          child: Column(children: [
+            Text(name),
+            Text(description),
+            Text(price.toString())
+          ]),
+        )));
   }
 }

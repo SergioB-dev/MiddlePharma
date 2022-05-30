@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:middle_pharamaceuticals/ViewModels/FirebaseManager.dart';
+import 'package:middle_pharamaceuticals/ViewModels/firebase_manager.dart';
 import 'package:middle_pharamaceuticals/parent_widgets/HomeScreen.dart';
 import 'package:middle_pharamaceuticals/parent_widgets/LoginWidget.dart';
 
@@ -62,13 +62,11 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        child: const Text('Tap me'),
-        onPressed: () {
-          login();
-        },
-      ),
+    return ElevatedButton(
+      child: const Text('Tap me'),
+      onPressed: () {
+        login();
+      },
     );
   }
 }
