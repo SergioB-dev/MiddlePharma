@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "499791279210",
+    "project_id": "mohamed-pharma",
+    "storage_bucket": "mohamed-pharma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499791279210:android:93385b614ffd2103ba8613",
+        "android_client_info": {
+          "package_name": "com.example.middle_pharamaceuticals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499791279210-kglqsdi6nm9muq6082eqnmuelg1sjibi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe6FltzNaDz0-v7AFSPey7hTL023CRt5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499791279210-kglqsdi6nm9muq6082eqnmuelg1sjibi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
