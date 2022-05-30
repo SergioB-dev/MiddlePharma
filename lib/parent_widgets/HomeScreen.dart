@@ -16,7 +16,6 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     firestore.getProducts(callback: () {
       setState(() {
