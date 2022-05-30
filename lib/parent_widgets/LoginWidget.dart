@@ -1,12 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import '../ViewModels/FirebaseManager.dart';
-import '../firebase_options.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 class LoginScreenWidget extends StatelessWidget {
   final emailTextController = TextEditingController();
@@ -35,7 +30,6 @@ class LoginScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(children: [
       const Text('Muhammad', style: TextStyle(fontSize: 20)),
       const Text('Pharmaceuticals', style: TextStyle(fontSize: 20)),

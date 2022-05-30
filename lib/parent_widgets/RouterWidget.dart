@@ -51,7 +51,6 @@ class _RouterScreenWidgetState extends State<RouterScreenWidget> {
         ]),
         body: Container(
             child: auth.hasUserLoggedIn
-                // TODO: Develop the screen for logged in users.
                 ? const HomeScreenWidget()
                 : LoginScreenWidget(userHasLoggedIn)));
   }
