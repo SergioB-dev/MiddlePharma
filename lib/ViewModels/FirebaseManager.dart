@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:middle_pharamaceuticals/Models/Product.dart';
 
 class FirebaseAuthentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -58,4 +60,60 @@ class FirebaseAuthentication {
       print('Logging out');
     }
   }
+}
+
+class FirebaseFS {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Product> allProducts = [];
+  bool didLoadProducts = false;
+
+  void getProduct() {
+    if (kDebugMode) {
+      print(_firestore.collection("products"));
+    }
+    _firestore
+        .collection('products')
+        .doc('uwvxegnxH0BaHQdGank1')
+        .get()
+        .then((response) {
+      final data = response.data();
+      print('Return type from firebase is $data');
+
+      final product = Product(
+          name: data!['name'],
+          description: data['description'],
+          price: data['price']);
+      print('We have a prodcut: \n $product');
+    }).onError((error, stackTrace) {
+      print(error);
+    });
+  }
+
+  void getProducts({required Function() callback}) {
+    List<Product> results = [];
+    _firestore
+        .collection('available_products')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        print(doc);
+        results.add(Product(
+            name: doc['name'],
+            description: doc['description'],
+            price: doc['price']));
+      }
+      allProducts = results;
+      callback();
+    }).onError((error, stackTrace) {
+      print(error);
+    });
+  }
+
+  // Future<List<Product>?> getProductsX() async {
+  //   List<Product> products = [];
+  //   if (kDebugMode) {}
+  //   final future_products = _firestore.collection('available_products').get();
+  //   return future_products
+  // }
+
 }
