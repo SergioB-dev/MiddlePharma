@@ -12,7 +12,7 @@ class HomeScreenWidget extends StatefulWidget {
 
 class _HomeScreenWidgetState extends State<HomeScreenWidget> {
   FirebaseFS firestore = FirebaseFS();
-  late List<Product> products;
+  List<Product> products = [];
 
   @override
   void initState() {
@@ -29,6 +29,44 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return GridView.builder(
+      itemCount: products.length,
+      itemBuilder: (ctx, index) {
+        if (products.isEmpty) {
+          return const CircularProgressIndicator();
+        }
+        return Container(
+            color: Colors.blue,
+            margin: const EdgeInsets.all(10),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetailWidget(
+                            products[index].name,
+                            products[index].description,
+                            products[index].price)));
+              },
+            ));
+      },
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 150),
+    );
+  }
+}
+
+class ProductDetailWidget extends StatelessWidget {
+  final String name;
+  final String description;
+  final double price;
+  const ProductDetailWidget(this.name, this.description, this.price, {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('$name $description $price'),
+    );
   }
 }
