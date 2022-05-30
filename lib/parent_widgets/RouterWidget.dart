@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:middle_pharamaceuticals/ViewModels/FirebaseManager.dart';
+import 'package:middle_pharamaceuticals/parent_widgets/HomeScreen.dart';
 import 'package:middle_pharamaceuticals/parent_widgets/LoginWidget.dart';
 
 class RouterScreenWidget extends StatefulWidget {
@@ -12,6 +14,7 @@ class RouterScreenWidget extends StatefulWidget {
 
 class _RouterScreenWidgetState extends State<RouterScreenWidget> {
   FirebaseAuthentication auth = FirebaseAuthentication();
+  FirebaseFS firestore = FirebaseFS();
 
   @override
   void initState() {
@@ -49,7 +52,7 @@ class _RouterScreenWidgetState extends State<RouterScreenWidget> {
         body: Container(
             child: auth.hasUserLoggedIn
                 // TODO: Develop the screen for logged in users.
-                ? const Text('We are already logged in!')
+                ? const HomeScreenWidget()
                 : LoginScreenWidget(userHasLoggedIn)));
   }
 }
