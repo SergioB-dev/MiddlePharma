@@ -8,57 +8,29 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-class LoginScreenWidget extends StatefulWidget {
-  const LoginScreenWidget({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return LoginScreenState();
-  }
-}
-
-class LoginScreenState extends State<LoginScreenWidget> {
+class LoginScreenWidget extends StatelessWidget {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
 
+  Function userHasLoggedIn;
+  LoginScreenWidget(this.userHasLoggedIn, {Key? key}) : super(key: key);
+
   FirebaseAuthentication auth = FirebaseAuthentication();
 
-  @override
-  void dispose() {
-    emailTextController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    auth = FirebaseAuthentication();
-  }
-
-  Future<Response> getData() async {
-    final String authority = 'www.googleapis.com';
-    final String path = '/books/v1/volumes/junbDwAAQBAJ';
-    Uri url = Uri.https(authority, path);
-    return http.get(url);
-  }
-
-  Future<void> createUser() async {
-    print(auth);
-    var that = auth
+  void createUser() {
+    auth
         .createUser(emailTextController.text, passwordTextController.text)
-        .then((response) => {print(response)})
-        .catchError((e) => {print(e)});
-    print(that);
+        .then((response) => {userHasLoggedIn()})
+        // TODO: Handle errors
+        .onError((error, stackTrace) => {});
   }
 
-  bool isLoggedIn() {
-    if (auth.firebaseAuth.currentUser == null) {
-      return false;
-    } else {
-      return true;
-    }
+  void loginUser() {
+    auth
+        .login(emailTextController.text, passwordTextController.text)
+        .then((response) => {userHasLoggedIn()})
+        // TODO: Handle errors
+        .onError((error, stackTrace) => {});
   }
 
   @override
@@ -84,11 +56,7 @@ class LoginScreenState extends State<LoginScreenWidget> {
                 border: OutlineInputBorder(), hintText: 'password'),
             style: const TextStyle(fontSize: 16)),
       ),
-      ElevatedButton(
-          onPressed: () {
-            createUser();
-          },
-          child: isLoggedIn() ? const Text('Signup') : const Text('Login'))
+      ElevatedButton(onPressed: loginUser, child: const Text('Login'))
     ]);
   }
 }
