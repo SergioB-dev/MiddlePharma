@@ -62,13 +62,11 @@ class TestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        child: const Text('Tap me'),
-        onPressed: () {
-          login();
-        },
-      ),
+    return ElevatedButton(
+      child: const Text('Tap me'),
+      onPressed: () {
+        login();
+      },
     );
   }
 }
