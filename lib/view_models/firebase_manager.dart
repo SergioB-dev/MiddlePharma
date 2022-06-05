@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:middle_pharamaceuticals/Models/product.dart';
 
@@ -126,7 +127,13 @@ class FirebaseFS {
           price: item.get('price'));
       products_by_category.add(product);
     }
-
+    if (products_by_category.length == 0) {
+      print('❌ Our async query for $category didnt return anything.');
+    } else {
+      print(
+          '✅ Our async query for $category returned ${products_by_category.length} items.');
+      print(products_by_category);
+    }
     return products_by_category;
   }
   // Future<List<Product>?> getProductsX() async {
@@ -136,4 +143,14 @@ class FirebaseFS {
   //   return future_products
   // }
 
+}
+
+class FirebaseClientStorage {
+  static final FirebaseStorage _storage = FirebaseStorage.instance;
+
+  Future<String> downloadImage() async {
+    final ref = _storage.ref().child('capsules/test.jpeg');
+    var url = await ref.getDownloadURL();
+    return url;
+  }
 }

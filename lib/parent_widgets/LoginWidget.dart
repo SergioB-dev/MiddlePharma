@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../ViewModels/firebase_manager.dart';
+import '../view_models/firebase_manager.dart';
 import 'dart:async';
 
 class LoginScreenWidget extends StatelessWidget {
